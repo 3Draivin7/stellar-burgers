@@ -42,8 +42,6 @@ const clearTokens = () => {
 
 type Action = AsyncAction<SerializedError | TUser, unknown>;
 
-// Функция для обработки ошибок
-// Создание асинхронных экшенов
 export const register = createAsyncThunk<TUser, TRegisterData>(
   'user/register', 
   async (data, { rejectWithValue }) => {
@@ -85,16 +83,6 @@ export const fetchUser = createAsyncThunk(
   'user/fetch', 
   async (_, { rejectWithValue }) => {
     const response = await getUserApi();
-    if (!response?.success) return rejectWithValue(response);
-
-    return response.user; 
-  }
-);
-
-export const updateUser = createAsyncThunk<TUser, Partial<TRegisterData>>(
-  'user/update', 
-  async (data, { rejectWithValue }) => {
-    const response = await updateUserApi(data);
     if (!response?.success) return rejectWithValue(response);
 
     return response.user; 
@@ -156,9 +144,6 @@ export const updateUser = createAsyncThunk<TUser, Partial<TRegisterData>>(
       .addCase(fetchUser.rejected, (state) => {
         state.isAuthChecked = true;
       })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.data = action.payload;
-      });
   },
   selectors: {
     userSelector: (state) => state.isAuthChecked
