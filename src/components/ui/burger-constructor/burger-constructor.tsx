@@ -36,26 +36,26 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         Выберите булки
       </div>
     )}
-    <ul className={styles.elements}>
-      {constructorItems.ingredients.length > 0 ? (
-        constructorItems.ingredients.map(
-          (item: TConstructorIngredient, index: number) => (
-            <BurgerConstructorElement
-              ingredient={item}
-              index={index}
-              totalItems={constructorItems.ingredients.length}
-              key={item.id}
-            />
-          )
-        )
-      ) : (
-        <div
-          className={`${styles.noBuns} ml-8 mb-4 mr-5 text text_type_main-default`}
-        >
-          Выберите начинку
-        </div>
-      )}
-    </ul>
+  <ul className={styles.elements}> 
+      {constructorItems.ingredients && constructorItems.ingredients.length > 0 ? ( 
+        constructorItems.ingredients.map( 
+          (item: TConstructorIngredient, index: number) => ( 
+            <BurgerConstructorElement 
+              ingredient={item} 
+              index={index} 
+              totalItems={constructorItems.ingredients.length} 
+              key={item.id} 
+            /> 
+          ) 
+        ) 
+      ) : ( 
+        <div 
+          className={`${styles.noBuns} ml-8 mb-4 mr-5 text text_type_main-default`} 
+        > 
+          Выберите начинку 
+        </div> 
+      )} 
+    </ul> 
     {constructorItems.bun ? (
       <div className={`${styles.element} mt-4 mr-4`}>
         <ConstructorElement
