@@ -1,13 +1,17 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useSelector } from '../../services/store'
-import { userSelector } from '../../components/slices/user';
+import { useSelector, useDispatch } from '../../services/store';
+import { fetchUser } from '../../services/slices/user';
+
 export const Profile: FC = () => {
   /** TODO: взять переменную из стора */
   const user = {
     name: useSelector((state) => state.user.data.name),
     email: useSelector((state) => state.user.data.email),
   };
+
+
+  localStorage.setItem('page','/profile');
 
   const [formValue, setFormValue] = useState({
     name: user.name,

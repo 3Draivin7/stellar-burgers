@@ -37,18 +37,18 @@ export const createOrder = createAsyncThunk<
   return { order: response.order, name: response.name };
 });
 
-export const fetchOrder = createAsyncThunk<TOrder, number>(
-  'orders/fetchOrder',
-  async (data, { rejectWithValue }) => {
-    const response = await getOrderByNumberApi(data);
+export const fetchOrder = createAsyncThunk<TOrder, number>( 
+  'orders/fetchOrder', 
+  async (data, { rejectWithValue }) => { 
+    const response = await getOrderByNumberApi(data); 
 
-    if (!response?.success) {
-      return rejectWithValue(response);
-    }
+    if (!response?.success) { 
+      return rejectWithValue(response); // Передаем ошибку
+    } 
 
-    return response.orders[0];
-  }
-);
+    return response.orders[0]; 
+  } 
+); 
 
 export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',

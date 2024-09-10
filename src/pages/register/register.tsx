@@ -29,7 +29,7 @@ import { FC, SyntheticEvent, useState, useEffect } from 'react';
 import { RegisterUI } from '@ui-pages'; 
 import { useNavigate } from 'react-router-dom'; 
 import { useDispatch, useSelector } from '../../services/store'; 
-import { register } from '../../components/slices/user'; 
+import { register } from '../../services/slices/user'; 
 
 export const Register: FC = () => { 
   const dispatch = useDispatch(); 

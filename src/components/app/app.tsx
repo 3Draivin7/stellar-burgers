@@ -12,8 +12,8 @@ import {ProtectedRoute} from '../protectedRoute/index';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import {Login,Register,ForgotPassword,ResetPassword,Profile,ProfileOrders,NotFound404} from '@pages'
-import {  fetchIngredients } from '../slices/ingredients';
-import { fetchUser } from '../slices/user'
+import {  fetchIngredients } from '../../services/slices/ingredients';
+import { fetchUser } from '../../services/slices/user'
 
 export const App = () => {
   const navigate = useNavigate();
@@ -29,9 +29,6 @@ export const App = () => {
 
   const location = useLocation();
   const background = location.state && location.state.background;
-  console.log(localStorage)
-
-const isAuthenticated =  useSelector((state) => state.user.isAuthenticated); ;
  return (
   <div className={styles.root}>
     <AppHeader />
@@ -43,7 +40,7 @@ const isAuthenticated =  useSelector((state) => state.user.isAuthenticated); ;
           <Route
             path='/login'
             element={
-              <ProtectedRoute isAuthenticated={true}>
+              <ProtectedRoute anonymous={true}>
                 <Login />
              </ProtectedRoute>
             }
@@ -51,7 +48,7 @@ const isAuthenticated =  useSelector((state) => state.user.isAuthenticated); ;
           <Route
             path='/register'
             element={
-              <ProtectedRoute isAuthenticated={true}>
+              <ProtectedRoute anonymous={true}>
                 <Register />
               </ProtectedRoute>
             }
@@ -59,7 +56,7 @@ const isAuthenticated =  useSelector((state) => state.user.isAuthenticated); ;
           <Route
             path='/forgot-password'
             element={
-              <ProtectedRoute isAuthenticated={true}>
+              <ProtectedRoute anonymous={true}>
                 <ForgotPassword />
               </ProtectedRoute>
             }
@@ -67,7 +64,7 @@ const isAuthenticated =  useSelector((state) => state.user.isAuthenticated); ;
           <Route
             path='/reset-password'
             element={
-              <ProtectedRoute isAuthenticated={true}>
+              <ProtectedRoute anonymous={true}>
                 <ResetPassword />
               </ProtectedRoute>
             }
@@ -75,7 +72,7 @@ const isAuthenticated =  useSelector((state) => state.user.isAuthenticated); ;
           <Route
             path='/profile'
             element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ProtectedRoute anonymous={false}>
                 <Profile />
               </ProtectedRoute>
             }
@@ -83,7 +80,7 @@ const isAuthenticated =  useSelector((state) => state.user.isAuthenticated); ;
           <Route
             path='/profile/orders'
             element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ProtectedRoute anonymous={false}>
                 <ProfileOrders />
               </ProtectedRoute>
             }
@@ -91,7 +88,7 @@ const isAuthenticated =  useSelector((state) => state.user.isAuthenticated); ;
           <Route
             path='/profile/orders/:number'
             element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ProtectedRoute anonymous={false}>
                 <OrderInfo />
               </ProtectedRoute>
             }

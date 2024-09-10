@@ -1,20 +1,34 @@
 import React from 'react';
-import { Navigate, useLocation, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Navigate, useLocation, Outlet, useNavigate } from 'react-router-dom';
+import { useSelector} from '../../services/store';
+import { Preloader } from '../ui';
+
 
 interface ProtectedRouteProps {
-  isAuthenticated: boolean;
+  anonymous: boolean;
   children?: React.ReactNode;
 }
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuthenticated, children }) => {
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ anonymous, children }) => {
+
+  const isLoggedIn = useSelector((store) => store.user.isAuthenticated);
   const location = useLocation();
 
-  if (!isAuthenticated) {
-    // Если пользователь не авторизован, перенаправить на страницу логина
-   return <Navigate to="/login"  />;
+  const from = location.state?.from;
+  const user = useSelector(state => state.user.data)
+ 
+  if (anonymous && isLoggedIn) {
+    // ...то отправляем его на предыдущую страницу
+    return <Navigate to={ from } />;
   }
 
-  // Если пользователь авторизован, отобразить содержимое маршрута
+  // Если требуется авторизация, а пользователь не авторизован...
+  if (!anonymous && !isLoggedIn) {
+    // ...то отправляем его на страницу логин
+    return <Navigate to="/login" state={{ from: location}}/>;
+  }
+
+  // Если все ок, то рендерим внутреннее содержимое
   return children;
+
 };
