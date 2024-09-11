@@ -22,7 +22,8 @@ const navigate = useNavigate();
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
     if (!isLogin){
-      navigate('/login')
+      const page = '/';
+      navigate('/login', {state: {page}})
     }
 
     const data = [
