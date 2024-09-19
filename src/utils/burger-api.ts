@@ -13,7 +13,7 @@ type TServerResponse<T> = {
 type TRefreshResponse = TServerResponse<{
   refreshToken: string;
   accessToken: string;
-}>; 
+}>;
 
 export const refreshToken = (): Promise<TRefreshResponse> =>
   fetch(`${URL}/auth/token`, {

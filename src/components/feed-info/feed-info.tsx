@@ -13,7 +13,6 @@ export const FeedInfo: FC = () => {
   /** TODO: взять переменные из стора */
   const { data } = useSelector((state) => state.feed);
 
-
   const readyOrders = getOrders(data.orders, 'done');
 
   const pendingOrders = getOrders(data.orders, 'pending');

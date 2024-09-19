@@ -7,23 +7,24 @@ import { createOrder } from '../../services/slices/orders/orderSlice';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
 
-  const  constructorItems  = useSelector((state) => state.burger.constructorItems)
-const navigate = useNavigate();
-  const orderRequest = useSelector(state => state.burger.orderRequest); 
-  const isLogin = useSelector(state => state.user.isAuthenticated)
-  
+  const constructorItems = useSelector(
+    (state) => state.burger.constructorItems
+  );
+  const navigate = useNavigate();
+  const orderRequest = useSelector((state) => state.burger.orderRequest);
+  const isLogin = useSelector((state) => state.user.isAuthenticated);
 
   const orderModalData = useSelector((state) => state.burger.orderModalData);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
-    if (!isLogin){
+    if (!isLogin) {
       const page = '/';
-      navigate('/login', {state: {page}})
+      navigate('/login', { state: { page } });
     }
 
     const data = [
@@ -33,12 +34,10 @@ const navigate = useNavigate();
     ];
 
     dispatch(createOrder(data));
-
   };
   const closeOrderModal = () => {
-    dispatch(resetOrderModalData())
+    dispatch(resetOrderModalData());
   };
-
 
   const price = useMemo(
     () =>
@@ -56,7 +55,7 @@ const navigate = useNavigate();
       orderRequest={orderRequest}
       constructorItems={constructorItems}
       orderModalData={orderModalData}
-      onOrderClick={onOrderClick} 
+      onOrderClick={onOrderClick}
       closeOrderModal={closeOrderModal}
     />
   );

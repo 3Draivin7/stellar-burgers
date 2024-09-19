@@ -16,15 +16,13 @@ export const OrderInfo: FC = () => {
 
   const { number } = useParams<{ number: string }>();
 
-  const ingredients  = useSelector(
-    (state) => state.ingredients.data
-  );
+  const ingredients = useSelector((state) => state.ingredients.data);
 
   /*const orderData  = useSelector(
     (state) => state.burger.orderModalData
   );*/
 
-  console.log(ingredients)
+  console.log(ingredients);
 
   useEffect(() => {
     getOrderByNumberApi(Number(number)).then((response) => {
@@ -32,8 +30,8 @@ export const OrderInfo: FC = () => {
     });
   }, [number]);
   const orderData = orders.find((item) => item.number === Number(number));
-  console.log(orderData)
-  /// Готовим данные для отображения 
+  console.log(orderData);
+  /// Готовим данные для отображения
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
@@ -81,4 +79,3 @@ export const OrderInfo: FC = () => {
 
   return <OrderInfoUI orderInfo={orderInfo} />;
 };
-

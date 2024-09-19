@@ -10,15 +10,15 @@ export const Login: FC = () => {
   const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    const from = location.state?.page
+    const from = location.state?.page;
     dispatch(login({ email, password }));
-    if (from){
+    if (from) {
       navigate('/');
-    }else{
-    navigate('/profile')
+    } else {
+      navigate('/profile');
     }
   };
 

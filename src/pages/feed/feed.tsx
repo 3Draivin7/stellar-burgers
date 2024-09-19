@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { fetchFeeds } from '../../services/slices/feed/feedSlice';
 
-
 export const Feed: FC = () => {
   const dispatch = useDispatch();
 

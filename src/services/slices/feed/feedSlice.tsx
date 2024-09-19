@@ -1,8 +1,12 @@
 import { getFeedsApi } from '@api';
-import {SerializedError,createAsyncThunk,createSlice} from '@reduxjs/toolkit';
+import {
+  SerializedError,
+  createAsyncThunk,
+  createSlice
+} from '@reduxjs/toolkit';
 import { TOrdersData } from '@utils-types';
 
-type TFeedsState = {
+export type TFeedsState = {
   isLoading: boolean;
   error: null | SerializedError;
   data: TOrdersData;
@@ -19,9 +23,9 @@ export const initialState: TFeedsState = {
 };
 
 export const fetchFeeds = createAsyncThunk<TOrdersData>(
-    'feeds/fetch',
-    async () => await getFeedsApi()
-  );
+  'feeds/fetch',
+  async () => await getFeedsApi()
+);
 
 export const feedSlice = createSlice({
   name: 'feeds',
@@ -44,4 +48,3 @@ export const feedSlice = createSlice({
       });
   }
 });
-

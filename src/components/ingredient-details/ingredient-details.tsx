@@ -2,13 +2,12 @@ import { FC } from 'react';
 import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
 import { useLocation } from 'react-router-dom';
-import  {useSelector}  from '../../services/store';
-import {selectIngredients} from '../../services/slices/ingredients/index'
+import { useSelector } from '../../services/store';
+import { selectIngredients } from '../../services/slices/ingredients/index';
 import { useParams } from 'react-router-dom';
 
-
 export const IngredientDetails: FC = () => {
- /* const location = useLocation().pathname.replace('/ingredients/', '').replace(/\s+/g, '').trim();*/
+  /* const location = useLocation().pathname.replace('/ingredients/', '').replace(/\s+/g, '').trim();*/
 
   /** TODO: взять переменную из стора */
   const { id } = useParams<{ id: string }>();
@@ -18,7 +17,7 @@ export const IngredientDetails: FC = () => {
   );
 
   if (!ingredientData) {
-    return <Preloader />; 
+    return <Preloader />;
   }
 
   return <IngredientDetailsUI ingredientData={ingredientData} />;

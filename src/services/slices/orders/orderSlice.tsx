@@ -2,12 +2,12 @@ import { getOrderByNumberApi, getOrdersApi, orderBurgerApi } from '@api';
 import {
   SerializedError,
   createAsyncThunk,
-  createSlice, 
+  createSlice,
   PayloadAction
 } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
-type TOrdersState = {
+export type TOrdersState = {
   isOrderLoading: boolean;
   isOrdersLoading: boolean;
   error: null | SerializedError;
@@ -15,17 +15,14 @@ type TOrdersState = {
 };
 
 export const initialState: TOrdersState = {
-  isOrderLoading: true,
-  isOrdersLoading: true,
+  isOrderLoading: false, // Изначально установите в false
+  isOrdersLoading: false, // Изначально установите в false
   error: null,
   data: []
 };
 
 export const createOrder = createAsyncThunk<
-  {
-    order: TOrder;
-    name: string;
-  },
+  { order: TOrder; name: string },
   string[]
 >('orders/create', async (data, { rejectWithValue }) => {
   const response = await orderBurgerApi(data);
@@ -37,18 +34,18 @@ export const createOrder = createAsyncThunk<
   return { order: response.order, name: response.name };
 });
 
-export const fetchOrder = createAsyncThunk<TOrder, number>( 
-  'orders/fetchOrder', 
-  async (data, { rejectWithValue }) => { 
-    const response = await getOrderByNumberApi(data); 
+export const fetchOrder = createAsyncThunk<TOrder, number>(
+  'orders/fetchOrder',
+  async (data, { rejectWithValue }) => {
+    const response = await getOrderByNumberApi(data);
 
-    if (!response?.success) { 
+    if (!response?.success) {
       return rejectWithValue(response); // Передаем ошибку
-    } 
+    }
 
-    return response.orders[0]; 
-  } 
-); 
+    return response.orders[0];
+  }
+);
 
 export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',
@@ -66,9 +63,11 @@ export const orderSlice = createSlice({
       })
       .addCase(fetchOrder.fulfilled, (state, action) => {
         state.isOrderLoading = false;
+        state.error = null; // Установка error в null после успешного получения
       })
-      .addCase(fetchOrder.rejected, (state) => {
+      .addCase(fetchOrder.rejected, (state, action) => {
         state.isOrderLoading = false;
+        state.error = action.error; // Сохранение ошибки
       })
       .addCase(fetchOrders.pending, (state) => {
         state.isOrdersLoading = true;
@@ -83,6 +82,19 @@ export const orderSlice = createSlice({
         state.isOrdersLoading = false;
         state.error = action.error;
       })
+      .addCase(createOrder.pending, (state) => {
+        state.isOrderLoading = true;
+      })
+      .addCase(createOrder.fulfilled, (state, action) => {
+        state.isOrderLoading = true;
+        state.error = null; // Сброс ошибки после успешного создания заказа
+        state.data.push(action.payload.order);
+      })
+      .addCase(createOrder.rejected, (state, action) => {
+        state.isOrderLoading = false;
+        state.error = action.error;
+      });
   }
 });
 
+export default orderSlice.reducer;

@@ -7,11 +7,10 @@ export const Profile: FC = () => {
   /** TODO: взять переменную из стора */
   const user = {
     name: useSelector((state) => state.user.data.name),
-    email: useSelector((state) => state.user.data.email),
+    email: useSelector((state) => state.user.data.email)
   };
 
-
-  localStorage.setItem('page','/profile');
+  localStorage.setItem('page', '/profile');
 
   const [formValue, setFormValue] = useState({
     name: user.name,
@@ -61,5 +60,4 @@ export const Profile: FC = () => {
       handleInputChange={handleInputChange}
     />
   );
-
 };
