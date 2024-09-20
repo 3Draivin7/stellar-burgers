@@ -69,6 +69,10 @@ export const burgerConstructorSlice = createSlice({
     },
     resetOrderModalData(state) {
       state.orderModalData = null;
+    },
+    resetConstructor(state) {
+      state.constructorItems.bun = null;
+      state.constructorItems.ingredients = [];
     }
   }
 });
@@ -81,5 +85,6 @@ export const {
   setOrderModalData,
   moveIngredientDown,
   moveIngredientUp,
-  resetOrderModalData
+  resetOrderModalData, 
+  resetConstructor
 } = burgerConstructorSlice.actions;

@@ -6,19 +6,22 @@ import {
   PayloadAction
 } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
+import { setOrderModalData } from '../constructor/burgerConstructorSlice';
 
 export type TOrdersState = {
   isOrderLoading: boolean;
   isOrdersLoading: boolean;
   error: null | SerializedError;
   data: TOrder[];
+  orderModalData: TOrder | null;
 };
 
 export const initialState: TOrdersState = {
   isOrderLoading: false, // Изначально установите в false
   isOrdersLoading: false, // Изначально установите в false
   error: null,
-  data: []
+  data: [],
+  orderModalData:null
 };
 
 export const createOrder = createAsyncThunk<
@@ -55,7 +58,11 @@ export const fetchOrders = createAsyncThunk(
 export const orderSlice = createSlice({
   name: 'orders',
   initialState,
-  reducers: {},
+  reducers: {
+    resetOrderModalData(state) {
+      state.orderModalData = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrder.pending, (state) => {
@@ -88,6 +95,7 @@ export const orderSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.isOrderLoading = true;
         state.error = null; // Сброс ошибки после успешного создания заказа
+        state.orderModalData = action.payload.order;
         state.data.push(action.payload.order);
       })
       .addCase(createOrder.rejected, (state, action) => {
@@ -96,5 +104,8 @@ export const orderSlice = createSlice({
       });
   }
 });
+export const {
+  resetOrderModalData
+} = orderSlice.actions;
 
 export default orderSlice.reducer;

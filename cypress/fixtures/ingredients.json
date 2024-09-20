@@ -2,7 +2,7 @@
   "success": true,
   "data": [
     {
-      "_id": "643d69a5c3f7b9001cfa093c",
+      "_id": "1",
       "name": "Краторная булка N-200i",
       "type": "bun",
       "proteins": 80,
@@ -16,7 +16,7 @@
       "__v": 0
     },
     {
-      "_id": "643d69a5c3f7b9001cfa093e",
+      "_id": "2",
       "name": "Филе Люминесцентного тетраодонтимформа",
       "type": "main",
       "proteins": 44,
@@ -30,7 +30,7 @@
       "__v": 0
     },
     {
-      "_id": "643d69a5c3f7b9001cfa0942",
+      "_id": "3",
       "name": "Соус Spicy-X",
       "type": "sauce",
       "proteins": 30,
