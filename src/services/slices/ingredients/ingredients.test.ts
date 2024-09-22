@@ -9,6 +9,19 @@ import { SerializedError } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 
 jest.mock('@api');
+const ingredient =  {
+  _id: '1',
+  name: 'Инредиент 1',
+  type: 'main',
+  proteins: 80,
+  fat: 24,
+  carbohydrates: 53,
+  calories: 200,
+  price: 100,
+  image: 'https://code.s3.yandex.net/react/code/bun-02.png',
+  image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
+  image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
+}
 
 describe('ingredientsSlice', () => {
   beforeEach(() => {
@@ -24,23 +37,7 @@ describe('ingredientsSlice', () => {
   });
 
   it('должен устанавливать isLoading в false и data при вызове fetchIngredients.fulfilled', async () => {
-    const mockData: TIngredient[] = [
-      // Пример данных ингредиентов
-      {
-        _id: '1',
-        name: 'Инредиент 1',
-        type: 'main',
-        proteins: 80,
-        fat: 24,
-        carbohydrates: 53,
-        calories: 200,
-        price: 100,
-        image: 'https://code.s3.yandex.net/react/code/bun-02.png',
-        image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
-        image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
-      }
-      // ... другие ингредиенты
-    ];
+    const mockData: TIngredient[] = [ingredient];
     (getIngredientsApi as jest.Mock).mockResolvedValue(mockData);
     const state = await ingredientsSlice.reducer(
       initialState,
@@ -69,25 +66,7 @@ describe('ingredientsSlice', () => {
       ingredients: {
         isLoading: false,
         error: null,
-        data: [
-          // Пример данных ингредиентов
-          {
-            _id: '1',
-            name: 'Инредиент 1',
-            type: 'main',
-            proteins: 80,
-            fat: 24,
-            carbohydrates: 53,
-            calories: 200,
-            price: 100,
-            image: 'https://code.s3.yandex.net/react/code/bun-02.png',
-            image_mobile:
-              'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
-            image_large:
-              'https://code.s3.yandex.net/react/code/bun-02-large.png'
-          }
-          // ... другие ингредиенты
-        ]
+        data: [ingredient]
       }
     };
     const ingredients = selectIngredients(state as any); // Приводим к типу any для селектора

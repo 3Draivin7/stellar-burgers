@@ -11,6 +11,17 @@ import { TOrder } from '@utils-types';
 
 jest.mock('@api');
 
+const mockOrder: TOrder = {
+  // Пример данных заказа
+  _id: '12345',
+  status: 'done',
+  name: 'Test Order',
+  createdAt: '2024-09-12T00:00:00Z',
+  updatedAt: '2024-09-12T00:00:00Z',
+  number: 1,
+  ingredients: ['ingredient1', 'ingredient2']
+};
+
 describe('orderSlice', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -30,16 +41,7 @@ describe('orderSlice', () => {
 });
 
 it('должен устанавливать isOrderLoading в false при вызове fetchOrder.fulfilled', async () => {
-  const mockOrder: TOrder = {
-    // Пример данных заказа
-    _id: '12345',
-    status: 'done',
-    name: 'Test Order',
-    createdAt: '2024-09-12T00:00:00Z',
-    updatedAt: '2024-09-12T00:00:00Z',
-    number: 1,
-    ingredients: ['ingredient1', 'ingredient2']
-  };
+
   (getOrderByNumberApi as jest.Mock).mockResolvedValue({
     success: true,
     orders: [mockOrder]
@@ -82,29 +84,17 @@ it('должен устанавливать isOrdersLoading в true при вы�
 });
 
 it('должен устанавливать isOrdersLoading в false и data при вызове fetchOrders.fulfilled', async () => {
-  const mockOrders: TOrder[] = [
-    // Пример данных заказов
-    {
-      _id: '12345',
-      status: 'done',
-      name: 'Test Order',
-      createdAt: '2024-09-12T00:00:00Z',
-      updatedAt: '2024-09-12T00:00:00Z',
-      number: 1,
-      ingredients: ['ingredient1', 'ingredient2']
-    }
-    // ... другие заказы
-  ];
-  (getOrdersApi as jest.Mock).mockResolvedValue(mockOrders);
+
+  (getOrdersApi as jest.Mock).mockResolvedValue([mockOrder]);
 
   const requestId = 'someRequestId'; // Извлеките requestId из объекта
 
   const state = await orderSlice.reducer(
     initialState,
-    fetchOrders.fulfilled(mockOrders, requestId) // Передайте requestId как строку
+    fetchOrders.fulfilled([mockOrder], requestId) // Передайте requestId как строку
   );
   expect(state.isOrdersLoading).toBe(false);
-  expect(state.data).toEqual(mockOrders);
+  expect(state.data).toEqual([mockOrder]);
 });
 
 it('должен устанавливать isOrdersLoading в false и error при вызове fetchOrders.rejected', async () => {
@@ -123,16 +113,7 @@ it('должен устанавливать isOrdersLoading в false и error п
 });
 
 it('должен устанавливать isOrderLoading в true и data при вызове createOrder.fulfilled', async () => {
-  const mockOrder: TOrder = {
-    // Пример данных заказа
-    _id: '12345',
-    status: 'done',
-    name: 'Test Order',
-    createdAt: '2024-09-12T00:00:00Z',
-    updatedAt: '2024-09-12T00:00:00Z',
-    number: 1,
-    ingredients: ['ingredient1', 'ingredient2']
-  };
+
   (orderBurgerApi as jest.Mock).mockResolvedValue({
     success: true,
     order: mockOrder,

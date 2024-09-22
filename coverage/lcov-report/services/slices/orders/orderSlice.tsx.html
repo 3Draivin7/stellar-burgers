@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.15% </span>
+                <span class="strong">83.78% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>79/95</span>
+                <span class='fraction'>93/111</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.15% </span>
+                <span class="strong">83.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>79/95</span>
+                <span class='fraction'>93/111</span>
             </div>
         
             
@@ -157,7 +157,32 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -211,6 +236,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -243,30 +272,43 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { getOrderByNumberApi, getOrdersApi, orderBurgerApi } from '@api';
-import { SerializedError, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getOrderByNumberApi, getOrdersApi, orderBurgerApi } from '@api';
+import {
+  SerializedError,
+  createAsyncThunk,
+  createSlice,
+  PayloadAction
+} from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
+import { setOrderModalData } from '../constructor/burgerConstructorSlice';
 &nbsp;
 export type TOrdersState = {
   isOrderLoading: boolean;
   isOrdersLoading: boolean;
   error: null | SerializedError;
   data: TOrder[];
+  orderModalData: TOrder | null;
 };
 &nbsp;
 export const initialState: TOrdersState = {
   isOrderLoading: false, // Изначально установите в false
   isOrdersLoading: false, // Изначально установите в false
   error: null,
-  data: []
+  data: [],
+  orderModalData:null
 };
 &nbsp;
 export const createOrder = createAsyncThunk&lt;
@@ -276,24 +318,24 @@ export const createOrder = createAsyncThunk&lt;
 <span class="cstat-no" title="statement not covered" >  const response = await orderBurgerApi(data);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  if (!response?.success) {</span>
-<span class="cstat-no" title="statement not covered" >    return rejectWithValue(response); </span>
-<span class="cstat-no" title="statement not covered" >  } </span>
+<span class="cstat-no" title="statement not covered" >    return rejectWithValue(response);</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  return { order: response.order, name: response.name }; </span>
+<span class="cstat-no" title="statement not covered" >  return { order: response.order, name: response.name };</span>
 });
 &nbsp;
-export const fetchOrder = createAsyncThunk&lt;TOrder, number&gt;(  
-  'orders/fetchOrder',  
-  async (data, { rejectWithValue }) =&gt; {  
-<span class="cstat-no" title="statement not covered" >    const response = await getOrderByNumberApi(data);  </span>
-<span class="cstat-no" title="statement not covered" > </span>
-<span class="cstat-no" title="statement not covered" >    if (!response?.success) {  </span>
-<span class="cstat-no" title="statement not covered" >      return rejectWithValue(response); // Передаем ошибку </span>
-<span class="cstat-no" title="statement not covered" >    }  </span>
-<span class="cstat-no" title="statement not covered" > </span>
-<span class="cstat-no" title="statement not covered" >    return response.orders[0];  </span>
-<span class="cstat-no" title="statement not covered" >  }  </span>
-);  
+export const fetchOrder = createAsyncThunk&lt;TOrder, number&gt;(
+  'orders/fetchOrder',
+  async (data, { rejectWithValue }) =&gt; {
+<span class="cstat-no" title="statement not covered" >    const response = await getOrderByNumberApi(data);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    if (!response?.success) {</span>
+<span class="cstat-no" title="statement not covered" >      return rejectWithValue(response); // Передаем ошибку</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    return response.orders[0];</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+);
 &nbsp;
 export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',
@@ -303,7 +345,11 @@ export const fetchOrders = createAsyncThunk(
 export const orderSlice = createSlice({
   name: 'orders',
   initialState,
-  reducers: {},
+  reducers: {
+    resetOrderModalData<span class="fstat-no" title="function not covered" >(state) {</span>
+<span class="cstat-no" title="statement not covered" >      state.orderModalData = null;</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+  },
   extraReducers: (builder) =&gt; {
     builder
       .addCase(fetchOrder.pending, (state) =&gt; {
@@ -311,7 +357,7 @@ export const orderSlice = createSlice({
       })
       .addCase(fetchOrder.fulfilled, (state, action) =&gt; {
         state.isOrderLoading = false;
-        state.error = null; // Установка error в null после успешного получения 
+        state.error = null; // Установка error в null после успешного получения
       })
       .addCase(fetchOrder.rejected, (state, action) =&gt; {
         state.isOrderLoading = false;
@@ -336,23 +382,28 @@ export const orderSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) =&gt; {
         state.isOrderLoading = true;
         state.error = null; // Сброс ошибки после успешного создания заказа
+        state.orderModalData = action.payload.order;
         state.data.push(action.payload.order);
       })
       .addCase(createOrder.rejected, (state, action) =&gt; {
         state.isOrderLoading = false;
-        state.error = action.error; 
+        state.error = action.error;
       });
   }
 });
+export const {
+  resetOrderModalData
+} = orderSlice.actions;
 &nbsp;
-export default orderSlice.reducer;</pre></td></tr></table></pre>
+export default orderSlice.reducer;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-19T14:59:31.840Z
+                at 2024-09-22T15:48:47.237Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
