@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.29% </span>
+                <span class="strong">92.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>81/85</span>
+                <span class='fraction'>83/90</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.55% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/9</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.29% </span>
+                <span class="strong">92.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>81/85</span>
+                <span class='fraction'>83/90</span>
             </div>
         
             
@@ -149,11 +149,11 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -198,6 +198,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -220,6 +224,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -234,93 +242,97 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// createSlice.js
 import { TConstructorIngredient, TOrder, TIngredient } from '@utils-types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 &nbsp;
- export interface constructorState {
-    constructorItems: {
-      bun: TIngredient | null;
-      ingredients: TConstructorIngredient[];
-    };
-    orderRequest: boolean;
-    orderModalData: TOrder | null;
-  }
+export interface constructorState {
+  constructorItems: {
+    bun: TIngredient | null;
+    ingredients: TConstructorIngredient[];
+  };
+  orderRequest: boolean;
+  orderModalData: TOrder | null;
+}
 &nbsp;
- const initialState: constructorState = {
-    constructorItems: {
-      bun: null,
-      ingredients: []
+export const initialState: constructorState = {
+  constructorItems: {
+    bun: null,
+    ingredients: []
+  },
+  orderRequest: false,
+  orderModalData: null
+};
+&nbsp;
+export const burgerConstructorSlice = createSlice({
+  name: 'burger',
+  initialState,
+  reducers: {
+    addIngredient: {
+      prepare: (payload: TIngredient) =&gt; ({
+        payload: { ...payload, id: uuidv4() }
+      }),
+      reducer: (state, action: PayloadAction&lt;TConstructorIngredient&gt;) =&gt; {
+        state.constructorItems.ingredients.push(action.payload);
+      }
     },
-    orderRequest: false,
-    orderModalData: null,
-  }
-&nbsp;
-  
-  
-  export const burgerConstructorSlice = createSlice({
-    name: 'burger',
-    initialState,
-    reducers: {
-        addIngredient: {
-          prepare: (payload: TIngredient) =&gt; ({
-            payload: { ...payload, id: uuidv4() } 
-          }),
-          reducer: (state, action: PayloadAction&lt;TConstructorIngredient&gt;) =&gt; {
-            state.constructorItems.ingredients.push(action.payload);
-          }
-        },
-        removeIngredient(state, action: PayloadAction&lt;string&gt;) {
-          state.constructorItems.ingredients = state.constructorItems.ingredients.filter(
-            (ingredient) =&gt; ingredient.id !== action.payload
-          );
-        },
-      setBun: <span class="fstat-no" title="function not covered" >(state, action: PayloadAction&lt;TIngredient&gt;) =&gt; {</span>
-        state.constructorItems.bun = action.payload;},
-      
-      setOrderRequest: <span class="fstat-no" title="function not covered" >(state, action: PayloadAction&lt;boolean&gt;) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        state.orderRequest = action.payload;</span>
-      },
-      setOrderModalData: <span class="fstat-no" title="function not covered" >(state, action: PayloadAction&lt;TOrder | null&gt;) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        state.orderModalData = action.payload;</span>
-      },
-      moveIngredientDown: (state, action) =&gt; {
-        [
-          state.constructorItems.ingredients[action.payload],
-          state.constructorItems.ingredients[action.payload + 1]
-        ] = [
-          state.constructorItems.ingredients[action.payload + 1],
-          state.constructorItems.ingredients[action.payload]
-        ];
-      },
-      moveIngredientUp: (state, action) =&gt; {
-        [
-          state.constructorItems.ingredients[action.payload],
-          state.constructorItems.ingredients[action.payload - 1]
-        ] = [
-          state.constructorItems.ingredients[action.payload - 1],
-          state.constructorItems.ingredients[action.payload]
-        ];
-      },
-      resetOrderModalData<span class="fstat-no" title="function not covered" >(state) {</span>
-<span class="cstat-no" title="statement not covered" >        state.orderModalData = null;</span>
-<span class="cstat-no" title="statement not covered" >      }</span>
+    removeIngredient(state, action: PayloadAction&lt;string&gt;) {
+      state.constructorItems.ingredients =
+        state.constructorItems.ingredients.filter(
+          (ingredient) =&gt; ingredient.id !== action.payload
+        );
     },
-  });
+    setBun: <span class="fstat-no" title="function not covered" >(state, action: PayloadAction&lt;TIngredient&gt;) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      state.constructorItems.bun = action.payload;</span>
+    },
 &nbsp;
-  export const {
-    addIngredient,
-    removeIngredient,
-    setBun,
-    setOrderRequest,
-    setOrderModalData,
-    moveIngredientDown,
-    moveIngredientUp,
-    resetOrderModalData
-  } = burgerConstructorSlice.actions;
+    setOrderRequest: <span class="fstat-no" title="function not covered" >(state, action: PayloadAction&lt;boolean&gt;) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      state.orderRequest = action.payload;</span>
+    },
+    setOrderModalData: <span class="fstat-no" title="function not covered" >(state, action: PayloadAction&lt;TOrder | null&gt;) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      state.orderModalData = action.payload;</span>
+    },
+    moveIngredientDown: (state, action) =&gt; {
+      [
+        state.constructorItems.ingredients[action.payload],
+        state.constructorItems.ingredients[action.payload + 1]
+      ] = [
+        state.constructorItems.ingredients[action.payload + 1],
+        state.constructorItems.ingredients[action.payload]
+      ];
+    },
+    moveIngredientUp: (state, action) =&gt; {
+      [
+        state.constructorItems.ingredients[action.payload],
+        state.constructorItems.ingredients[action.payload - 1]
+      ] = [
+        state.constructorItems.ingredients[action.payload - 1],
+        state.constructorItems.ingredients[action.payload]
+      ];
+    },
+    resetOrderModalData<span class="fstat-no" title="function not covered" >(state) {</span>
+<span class="cstat-no" title="statement not covered" >      state.orderModalData = null;</span>
+    },
+    resetConstructor<span class="fstat-no" title="function not covered" >(state) {</span>
+<span class="cstat-no" title="statement not covered" >      state.constructorItems.bun = null;</span>
+<span class="cstat-no" title="statement not covered" >      state.constructorItems.ingredients = [];</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+  }
+});
 &nbsp;
+export const {
+  addIngredient,
+  removeIngredient,
+  setBun,
+  setOrderRequest,
+  setOrderModalData,
+  moveIngredientDown,
+  moveIngredientUp,
+  resetOrderModalData, 
+  resetConstructor
+} = burgerConstructorSlice.actions;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -328,7 +340,7 @@ import { v4 as uuidv4 } from 'uuid';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-19T14:59:31.840Z
+                at 2024-09-22T15:48:47.237Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

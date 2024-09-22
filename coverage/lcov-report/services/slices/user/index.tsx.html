@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.63% </span>
+                <span class="strong">78.12% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>118/152</span>
+                <span class='fraction'>125/160</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.63% </span>
+                <span class="strong">78.12% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>118/152</span>
+                <span class='fraction'>125/160</span>
             </div>
         
             
@@ -217,7 +217,17 @@
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -259,7 +269,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -334,18 +344,22 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -367,164 +381,168 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { SerializedError, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { 
-  TLoginData, 
-  TRegisterData, 
-  getUserApi, 
-  loginUserApi, 
-  logoutApi, 
-  registerUserApi, 
-  updateUserApi 
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+  SerializedError,
+  createAsyncThunk,
+  createSlice
+} from '@reduxjs/toolkit';
+import {
+  TLoginData,
+  TRegisterData,
+  getUserApi,
+  loginUserApi,
+  logoutApi,
+  registerUserApi,
+  updateUserApi
 } from '@api';
-import { TUser } from '@utils-types'; 
+import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../../utils/cookie';
 &nbsp;
-export type TUserState = {  
-  isAuthChecked: boolean;  
-  isAuthenticated: boolean;  
-  loginError?: SerializedError;  
-  registerError?: SerializedError;  
-  data: TUser;  
+export type TUserState = {
+  isAuthChecked: boolean;
+  isAuthenticated: boolean;
+  loginError?: SerializedError;
+  registerError?: SerializedError;
+  data: TUser;
   isLoading: boolean; // Добавлено isLoading
-};  
- 
-export const initialState: TUserState = {  
-  isAuthChecked: false,  
-  isAuthenticated: false,  
+};
+&nbsp;
+export const initialState: TUserState = {
+  isAuthChecked: false,
+  isAuthenticated: false,
   data: { name: '', email: '' },
   isLoading: false // Добавлено начальное состояние isLoading
-}; 
- 
-interface AsyncAction&lt;T, E&gt; { 
-    type: string; 
-    payload?: T; 
-    error?: E; 
-    meta: { 
-        requestId: string; 
-        rejectedWithValue?: boolean; 
-    }; 
-} 
- 
-const clearTokens = <span class="fstat-no" title="function not covered" >() =&gt; { </span>
-<span class="cstat-no" title="statement not covered" >    localStorage.removeItem('refreshToken'); </span>
-<span class="cstat-no" title="statement not covered" >    deleteCookie('accessToken'); </span>
-  }; 
- 
-type Action = AsyncAction&lt;SerializedError | TUser, unknown&gt;; 
- 
-export const register = createAsyncThunk&lt;TUser, TRegisterData&gt;( 
-  'user/register',  
-  async (data, { rejectWithValue }) =&gt; { 
-<span class="cstat-no" title="statement not covered" >    const response = await registerUserApi(data); </span>
-<span class="cstat-no" title="statement not covered" >    if (!response?.success) return rejectWithValue(response); </span>
-<span class="cstat-no" title="statement not covered" >     </span>
-<span class="cstat-no" title="statement not covered" >    const { user, refreshToken, accessToken } = response; </span>
-<span class="cstat-no" title="statement not covered" >    storeTokens(refreshToken, accessToken); </span>
-<span class="cstat-no" title="statement not covered" >     </span>
-<span class="cstat-no" title="statement not covered" >    return user;  </span>
-<span class="cstat-no" title="statement not covered" >  } </span>
-); 
- 
-export const login = createAsyncThunk&lt;TUser, TLoginData&gt;( 
-    'user/login', 
-    async (data, { rejectWithValue }) =&gt; { 
-<span class="cstat-no" title="statement not covered" >      const response = await loginUserApi(data); </span>
-<span class="cstat-no" title="statement not covered" >   </span>
-<span class="cstat-no" title="statement not covered" >      if (!response?.success) { </span>
-<span class="cstat-no" title="statement not covered" >        return rejectWithValue(response); </span>
-<span class="cstat-no" title="statement not covered" >      } </span>
-<span class="cstat-no" title="statement not covered" >      const { user, refreshToken, accessToken } = response; </span>
-<span class="cstat-no" title="statement not covered" >      storeTokens(refreshToken, accessToken); </span>
-<span class="cstat-no" title="statement not covered" >      return user; </span>
-<span class="cstat-no" title="statement not covered" >    } </span>
-  ); 
- 
-export const logout = createAsyncThunk( 
-  'user/logout',  
-  async (_, { rejectWithValue }) =&gt; { 
-<span class="cstat-no" title="statement not covered" >    const response = await logoutApi(); </span>
-<span class="cstat-no" title="statement not covered" >    if (!response?.success) return rejectWithValue(response); </span>
-<span class="cstat-no" title="statement not covered" >    clearTokens(); </span>
-<span class="cstat-no" title="statement not covered" >    console.log(localStorage) </span>
-<span class="cstat-no" title="statement not covered" >  } </span>
-); 
- 
-export const fetchUser = createAsyncThunk( 
-  'user/fetch',  
-  async (_, { rejectWithValue }) =&gt; { 
-<span class="cstat-no" title="statement not covered" >    const response = await getUserApi(); </span>
-<span class="cstat-no" title="statement not covered" >    if (!response?.success) return rejectWithValue(response); </span>
-<span class="cstat-no" title="statement not covered" > </span>
-<span class="cstat-no" title="statement not covered" >    return response.user;  </span>
-<span class="cstat-no" title="statement not covered" >  } </span>
-); 
- 
- const storeTokens = <span class="fstat-no" title="function not covered" >(refreshToken: string, accessToken: string) =&gt; { </span>
-<span class="cstat-no" title="statement not covered" >    localStorage.setItem('refreshToken', String(refreshToken)); </span>
-<span class="cstat-no" title="statement not covered" >   </span>
-<span class="cstat-no" title="statement not covered" >    setCookie('accessToken', String(accessToken)); </span>
-<span class="cstat-no" title="statement not covered" >  };</span>
-  export const userSlice = createSlice({  
-    name: 'user',  
-    initialState,  
-    reducers: {},  
-    extraReducers: (builder) =&gt; {  
-      builder 
-        .addCase(register.pending, (state) =&gt; { 
-          state.registerError = undefined;
-          state.isLoading = true; // Установите isLoading в true при ожидании
-        }) 
-        .addCase(register.fulfilled, (state, action) =&gt; { 
-          state.registerError = undefined; 
-          state.isAuthenticated = true; 
-          state.data = action.payload; 
-          state.isLoading = false; // Установите isLoading в false при выполнении
-        }) 
-        .addCase(register.rejected, (state, action) =&gt; { 
-          state.registerError = action.meta.rejectedWithValue <span class="branch-0 cbranch-no" title="branch not covered" >? (action.payload as SerializedError) </span>: action.error; 
-          state.isLoading = false; // Установите isLoading в false при отмене
-        }) 
-        .addCase(login.pending, (state) =&gt; { 
-          state.loginError = undefined; 
-          state.isLoading = true; // Установите isLoading в true при ожидании
-        }) 
-        .addCase(login.fulfilled, (state, action) =&gt; { 
-          state.loginError = undefined; 
-          state.isAuthenticated = true; 
-          state.data = action.payload; 
-          state.isLoading = false; // Установите isLoading в false при выполнении
-        }) 
-        .addCase(login.rejected, (state, action) =&gt; { 
-          state.loginError = action.meta.rejectedWithValue <span class="branch-0 cbranch-no" title="branch not covered" >? (action.payload as SerializedError) </span>: action.error; 
-          state.isLoading = false; // Установите isLoading в false при отмене
-        }) 
-        .addCase(logout.fulfilled, (state) =&gt; { 
-          state.isAuthenticated = false; 
-          state.data = { email: '', name: '' }; 
-          state.isLoading = false; // Установите isLoading в false при выполнении
-        }) 
-        .addCase(fetchUser.pending, (state) =&gt; {
-<span class="cstat-no" title="statement not covered" >          state.isLoading = true; // Установите isLoading в true при ожидании</span>
-        }) 
-        .addCase(fetchUser.fulfilled, (state, action) =&gt; { 
-          state.isAuthenticated = true; 
-          state.isAuthChecked = true; 
-          state.data = action.payload; 
-          state.isLoading = false; // Установите isLoading в false при выполнении
-        }) 
-        .addCase(fetchUser.rejected, (state) =&gt; { 
-          state.isAuthChecked = true; 
-          state.isLoading = false; // Установите isLoading в false при отмене
-        }) 
-    },
-  });
+};
 &nbsp;
+interface AsyncAction&lt;T, E&gt; {
+  type: string;
+  payload?: T;
+  error?: E;
+  meta: {
+    requestId: string;
+    rejectedWithValue?: boolean;
+  };
+}
 &nbsp;
+const clearTokens = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  localStorage.removeItem('refreshToken');</span>
+<span class="cstat-no" title="statement not covered" >  deleteCookie('accessToken');</span>
+<span class="cstat-no" title="statement not covered" >};</span>
+&nbsp;
+type Action = AsyncAction&lt;SerializedError | TUser, unknown&gt;;
+&nbsp;
+export const register = createAsyncThunk&lt;TUser, TRegisterData&gt;(
+  'user/register',
+  async (data, { rejectWithValue }) =&gt; {
+<span class="cstat-no" title="statement not covered" >    const response = await registerUserApi(data);</span>
+<span class="cstat-no" title="statement not covered" >    if (!response?.success) return rejectWithValue(response);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    const { user, refreshToken, accessToken } = response;</span>
+<span class="cstat-no" title="statement not covered" >    storeTokens(refreshToken, accessToken);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    return user;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+);
+&nbsp;
+export const login = createAsyncThunk&lt;TUser, TLoginData&gt;(
+  'user/login',
+  async (data, { rejectWithValue }) =&gt; {
+<span class="cstat-no" title="statement not covered" >    const response = await loginUserApi(data);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    if (!response?.success) {</span>
+<span class="cstat-no" title="statement not covered" >      return rejectWithValue(response);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    const { user, refreshToken, accessToken } = response;</span>
+<span class="cstat-no" title="statement not covered" >    storeTokens(refreshToken, accessToken);</span>
+<span class="cstat-no" title="statement not covered" >    return user;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+);
+&nbsp;
+export const logout = createAsyncThunk(
+  'user/logout',
+  async (_, { rejectWithValue }) =&gt; {
+<span class="cstat-no" title="statement not covered" >    const response = await logoutApi();</span>
+<span class="cstat-no" title="statement not covered" >    if (!response?.success) return rejectWithValue(response);</span>
+<span class="cstat-no" title="statement not covered" >    clearTokens();</span>
+<span class="cstat-no" title="statement not covered" >    console.log(localStorage);</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+);
+&nbsp;
+export const fetchUser = createAsyncThunk(
+  'user/fetch',
+  async (_, { rejectWithValue }) =&gt; {
+<span class="cstat-no" title="statement not covered" >    const response = await getUserApi();</span>
+<span class="cstat-no" title="statement not covered" >    if (!response?.success) return rejectWithValue(response);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    return response.user;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+);
+&nbsp;
+const storeTokens = <span class="fstat-no" title="function not covered" >(refreshToken: string, accessToken: string) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  localStorage.setItem('refreshToken', String(refreshToken));</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  setCookie('accessToken', String(accessToken));</span>
+<span class="cstat-no" title="statement not covered" >};</span>
+export const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) =&gt; {
+    builder
+      .addCase(register.pending, (state) =&gt; {
+        state.registerError = undefined;
+        state.isLoading = true; // Установите isLoading в true при ожидании
+      })
+      .addCase(register.fulfilled, (state, action) =&gt; {
+        state.registerError = undefined;
+        state.isAuthenticated = true;
+        state.data = action.payload;
+        state.isLoading = false; // Установите isLoading в false при выполнении
+      })
+      .addCase(register.rejected, (state, action) =&gt; {
+        state.registerError = action.meta.rejectedWithValue
+<span class="branch-0 cbranch-no" title="branch not covered" >          ? (action.payload as SerializedError)</span>
+          : action.error;
+        state.isLoading = false; // Установите isLoading в false при отмене
+      })
+      .addCase(login.pending, (state) =&gt; {
+        state.loginError = undefined;
+        state.isLoading = true; // Установите isLoading в true при ожидании
+      })
+      .addCase(login.fulfilled, (state, action) =&gt; {
+        state.loginError = undefined;
+        state.isAuthenticated = true;
+        state.data = action.payload;
+        state.isLoading = false; // Установите isLoading в false при выполнении
+      })
+      .addCase(login.rejected, (state, action) =&gt; {
+        state.loginError = action.meta.rejectedWithValue
+<span class="branch-0 cbranch-no" title="branch not covered" >          ? (action.payload as SerializedError)</span>
+          : action.error;
+        state.isLoading = false; // Установите isLoading в false при отмене
+      })
+      .addCase(logout.fulfilled, (state) =&gt; {
+        state.isAuthenticated = false;
+        state.data = { email: '', name: '' };
+        state.isLoading = false; // Установите isLoading в false при выполнении
+      })
+      .addCase(fetchUser.pending, (state) =&gt; {
+<span class="cstat-no" title="statement not covered" >        state.isLoading = true; // Установите isLoading в true при ожидании</span>
+      })
+      .addCase(fetchUser.fulfilled, (state, action) =&gt; {
+        state.isAuthenticated = true;
+        state.isAuthChecked = true;
+        state.data = action.payload;
+        state.isLoading = false; // Установите isLoading в false при выполнении
+      })
+      .addCase(fetchUser.rejected, (state) =&gt; {
+        state.isAuthChecked = true;
+        state.isLoading = false; // Установите isLoading в false при отмене
+      });
+  }
+});
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -532,7 +550,7 @@ export const fetchUser = createAsyncThunk(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-19T14:59:31.840Z
+                at 2024-09-22T15:48:47.237Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
